@@ -163,23 +163,14 @@ write.table(j, "./temp/dind_reg.tex", quote = F, col.names = F,
 
 
 ############################################
-states <- tigris::states()
+states <- tigris::counties(state = "NC", year = 2018, cb = T)
 
-states <- inner_join(
-  states@data %>% 
-    mutate(id = rownames(states@data)),
-  fortify(states),
-  by = "id"
-) %>% 
-  filter(NAME == "North Carolina")
-
-map <- ggplot() + geom_point(data = sample_frac(voters, 0.1), aes(x = longitude, y = latitude, color = dist)) +
-  coord_equal() +
-  geom_point(data = protests, aes(x = LONGITUDE, y = LATITUDE), color = "red", size = 1) +
+map <- ggplot() + 
+  coord_sf() +
+  geom_point(data = protests, aes(x = LONGITUDE, y = LATITUDE), color = "red", size = 2) +
   labs(color = "Miles to Closest June Protests") +
-  geom_path(data = states, aes(x = long, y = lat, group = group), size = 2) +
+  geom_sf(data = states, fill = NA) +
   labs(x = NULL, y = NULL) + 
-  scale_fill_gradient(guide = guide_colorbar(title.position = "top", title.hjust = 0.5)) +
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         panel.background = element_blank(),

@@ -41,24 +41,20 @@ loadfonts()
 \pagenumbering{arabic}
 \begin{center}
 Black Lives Matter Protests and Voter Turnout
+
 Cameron Kimble, Kevin Morris, and Kasey Zapatka
 \end{center}
 
-### Introduction {-}
-TKTKTKTK
-Political socialization, in recent years, is more and more defined as the gradual development of an individual’s political preferences, and more broadly, their perceptions of the political world – the norms and behaviors internalized within a given society [@Fillieule2013]. However, socialization research in the past has focused on why people do or do not participate in politics, as opposed to the socialization effects of participation in explicitly political organizations.
-Given the resurgence of mass protest, we seek to understand the socializing effects of participation in social movements (or protest movements). Prior research [@Snow1986] indicates that initial frame alignment (“schemata of interpretation”) between an individual and a social movement organization is a precondition of participation, and that frame alignment is a continuing process that occurs between individuals and social movements, transforming and reinforcing the individual’s ideological orientations.
-Research on American activists in the 1960s has addressed the effects of participation on a social movement on political behaviors and views. Indeed, one study found that participating in the Freedom Summer project caused volunteers to become “radicalized,” and were thus significantly more likely to participate in social movements in subsequent years [@McAdam1989]. In a similar study, researchers conclude that involvement with social movements through the 1960s and 1970s caused participants to become significantly more liberal in political orientation, as evidenced by subsequent political engagement – voting for Jimmy Carter, and participating in subsequent demonstrations  [@Sherkat1997].
- Harnessing discontent, and channeling it into political/social movement
--Rustin
- Raising awareness/developing critical conscious through Social movement participation 
+Political socialization, in recent years, is more and more defined as the gradual development of an individual’s political preferences, and more broadly, their perceptions of the political world – the norms and behaviors internalized within a given society [@Fillieule2013]. Research about how individuals develop identities as citizens and engage in political behavior is being studied with increasing sophistication. This paper explores whether exposure to Black Lives Matter protests in the summer of 2020 increased voter turnout, especially for individuals in closest contact to the American legal system.
 
-### Literature on Protests and Mobilization {-}
-Cameron to fill
+The summer of 2020 saw the largest mass movement in American history [@Buchanan2020] as residents across the country took to the streets to protest police violence against Black citizens. Given the resurgence of mass protest, we seek to understand the socializing effects of participation in social movements (or protest movements). Prior research [@Snow1986] indicates that initial *frame alignment* (“schemata of interpretation”) between an individual and a social movement organization is a precondition of participation, and that frame alignment is a continuing process that occurs between individuals and social movements, transforming and reinforcing the individual’s ideological orientations. The Black Lives Matter protests offered the possibility of just this sort of frame realignment. 
+Research on American activists in the 1960s has addressed the effects of participation on a social movement on political behaviors and views. Indeed, one study found that participating in the Freedom Summer project caused volunteers to become “radicalized,” and were thus significantly more likely to participate in social movements in subsequent years [@McAdam1989]. In a similar study, researchers conclude that involvement with social movements through the 1960s and 1970s caused participants to become significantly more liberal in political orientation, as evidenced by subsequent political engagement – voting for Jimmy Carter, and participating in subsequent demonstrations  [@Sherkat1997].
+
+Other scholars have documented the process by which cultural grievance is used to mobilize groups of voters in the post New Deal United States [@Leege2002]. Other work indicates that, when social movements challenge the status quo, mobilization efforts from the associated political party intensifies, thereby increasing voter turnout [@Winders1999]. It seems, then, that the 2020 protests may have increased turnout, especially among voters most aligned with racially diverse coalitions.
 
 ### The Mobilizing Potential of Injustice Narratives {-}
 
-Although protests can be a site of key political socialization, the Black Lives Matter movement centers on a social issue that has historically been *demobilizing.* Much research over the past decade has demonstrated that contact with the legal system causes individuals to withdraw from political socialization [see, for instance, @Lerman2014]. These demobilizing effects may extend even to individuals who have *not* been formally convicted, but rather are in close contact with those who have been [@Morris2020; but see @White2019a]. The relationship, however, is complicated: @Walker2014 shows that individuals in “proximal contact” --- whose family members have been convicted --- become more likely to participate in non-electoral political activities.
+Although protests can be a site of key political socialization, the Black Lives Matter movement centers on a social issue that has historically been *demobilizing.* Much research over the past decade has demonstrated that contact with the legal system causes individuals to withdraw from political socialization [see, for instance, @Lerman2014]. These demobilizing effects may extend even to individuals who have *not* been formally convicted, but rather are in close contact with those who have been [@Morris2020; but see @White2019]. The relationship, however, is complicated: @Walker2014 shows that individuals in “proximal contact” --- whose family members have been convicted --- become more likely to participate in non-electoral political activities.
 
 @Walker2020, however, provides key insight into how the generally demobilizing effects of contact with the legal system can be transformed into a *mobilizing* force. Walker argues that, when individuals locate their experience with the legal system in narratives of (racial) injustice, the contact can cause them to take action. The Black Lives Matter movement aimed to do just this. BLM activists called attention to the fact that American police forces have a long history of racially discriminatory practices. The widespread protests may have caused individuals in close contact with police and the legal system to understand their contact with the police and legal systems *not* as personal failings but as a key producer of racial inequity. The recent work from Hannah Walker indicates that this may have been a mobilizing event.
 
@@ -76,7 +72,7 @@ To be sure, this cannot prove the causal link between exposure to protest and in
 
 As mentioned above, individual-level turnout records are not yet widely available, but will be published in the first half of 2021. The records are available, however, for the states of Georgia and North Carolina which we use as pilot studies.
 
-Figure \ref{fig:map} displays the location of all protests staged in June, 2020, in Georgia and North Carolina. We also show the distribution of voters around the state.
+Figure \ref{fig:map} displays the location of all protests staged in June, 2020, in Georgia and North Carolina.
 
 ```{r, figures-side, fig.show="hold", out.width="50%", echo = FALSE, message = F, warning = F, fig.cap = "\\label{fig:map}Sites of June, 2020, Protests", fig.pos = "H"}
 p1 <- readRDS("./temp/ga_map_1.rds")
