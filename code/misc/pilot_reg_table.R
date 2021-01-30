@@ -6,9 +6,14 @@ load("temp/nc_models.RData")
 models1_nc <- models1
 ses_cl_nc <- ses_cl
 rm(models1, ses_cl)
+
+load("temp/oh_models.RData")
+models1_oh <- models1
+ses_cl_oh <- ses_cl
+rm(models1, ses_cl)
 ##############################################
 
-stargazer(models1_ga, models1_nc,
+stargazer(models1_ga, models1_nc, models1_oh,
           header = F,
           type = "text", notes.align = "l",
           covariate.labels = c("Distance", "Distance Sq.", "Lived within 5 Miles",
@@ -22,15 +27,16 @@ stargazer(models1_ga, models1_nc,
           out = "./temp/bigreg.tex",
           out.header = F,
           notes = "TO REPLACE",
-          se = c(ses_cl_ga, ses_cl_nc),
-          column.labels = c("Georgia", "North Carolina"),
-          column.separate = c(3, 3),
+          se = c(ses_cl_ga, ses_cl_nc, ses_cl_oh),
+          column.labels = c("Georgia", "North Carolina", "Ohio"),
+          column.separate = c(3, 3, 3),
           omit = c("reg_date", "v14", "v16", "v18", "county"),
-          add.lines = list(c("County Fixed Effects", rep("X", 6))))
+          add.lines = list(c("County Fixed Effects", rep("X", 9)),
+                           c("General Election Turout, 2012 - 2018", rep("X", 9))))
 
 j <- fread("./temp/bigreg.tex", header = F, sep = "+")
 
-note.latex <- "\\multicolumn{7}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered by county) in parentheses.}}}"
+note.latex <- "\\multicolumn{10}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered by county) in parentheses.}}}"
 
 j <- j %>% 
   mutate(n = row_number(),
