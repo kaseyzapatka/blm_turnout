@@ -60,7 +60,7 @@ rm(ids)
 ##################################
 
 bgs <- readOGR("../regular_data/nc_bgs",
-                     "tl_2019_37_bg")
+               "tl_2019_37_bg")
 
 pings  <- SpatialPoints(voters[ , c('longitude','latitude')], proj4string = bgs@proj4string)
 
@@ -116,7 +116,7 @@ ses_cl <- list(
   summary(lm.cluster(formula = f1, data = tenp, cluster = tenp$county))[ , 2],
   summary(lm.cluster(formula = f2, data = tenp, cluster = tenp$county))[ , 2],
   summary(lm.cluster(formula = f3, data = tenp, cluster = tenp$county))[ , 2]
-  )
+)
 save(models1, ses_cl, file = "temp/nc_models.RData")
 ##############################################
 
