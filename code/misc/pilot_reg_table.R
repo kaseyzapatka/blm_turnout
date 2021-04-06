@@ -32,11 +32,12 @@ stargazer(models1_ga, models1_nc, models1_oh,
           column.separate = c(3, 3, 3),
           omit = c("reg_date", "v14", "v16", "v18", "county"),
           add.lines = list(c("County Fixed Effects", rep("X", 9)),
-                           c("General Election Turout, 2012 - 2018", rep("X", 9))))
+                           c("General Election Turout, 2012 - 2018", rep("X", 9))),
+          star.cutoffs = c(0.05, 0.01, 0.001))
 
 j <- fread("./temp/bigreg.tex", header = F, sep = "+")
 
-note.latex <- "\\multicolumn{10}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.01$, $^{**}p<0.05$, $^*p<0.1$. \\\\Robust standard errors (clustered by county) in parentheses.}}}"
+note.latex <- "\\multicolumn{10}{l}{\\scriptsize{\\parbox{.5\\linewidth}{\\vspace{2pt}$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$. \\\\Robust standard errors (clustered by county) in parentheses.}}}"
 
 j <- j %>% 
   mutate(n = row_number(),
