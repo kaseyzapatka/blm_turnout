@@ -1,0 +1,217 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Black Lives Matter Protests and Voter Turnout},
+  pdfauthor={Cameron Kimble; Leanne Fan; Kasey Zapatka; Kevin Morris},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\title{Black Lives Matter Protests and Voter Turnout\thanks{The authors thank XX for their feedback and support. All errors are our responsibility.}}
+\author{Cameron Kimble\footnote{Research and Program Associate, Brennan Center for Justice (\href{mailto:cameron.kimble@nyu.edu}{\nolinkurl{cameron.kimble@nyu.edu}})} \and Leanne Fan\footnote{PhD Student, Department of Sociology, CUNY Graduate Center (\href{mailto:lfan@gradcenter.cuny.edu}{\nolinkurl{lfan@gradcenter.cuny.edu}})} \and Kasey Zapatka\footnote{PhD Candidate, Department of Sociology, CUNY Graduate Center (\href{mailto:kzapatka@gradcenter.cuny.edu}{\nolinkurl{kzapatka@gradcenter.cuny.edu}})} \and Kevin Morris\footnote{PhD Student, Department of Sociology, CUNY Graduate Center (\href{mailto:kmorris@fgradcenter.cuny.edu}{\nolinkurl{kmorris@fgradcenter.cuny.edu}})}}
+\date{May 05, 2021}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+In the summer of 2020, Americans took to the streets in larger numbers than ever before. Following the police murders of George Floyd and Breonna Taylor, an enormous multiracial coalition voiced their dissatisfaction with the state of policing in the United States. These mass protests took place shortly before a presidential election, and the incumbent loudly voiced his disdain for protesters and their political message. This paper explores one aspect of the impact of the Black Lives Matter (BLM) movement. Using a national voter file and data on protest location, we aim to estimate the causal impact of physical proximity to a BLM protest on voter turnout. Our pilot studies using Georgia, North Carolina, and Ohio point to a complicated relationship that demands further investigation.
+\end{abstract}
+
+\pagenumbering{gobble}
+\pagebreak
+\doublespacing
+
+\pagenumbering{arabic}
+
+\hypertarget{data-and-design}{%
+\section*{Data and Design}\label{data-and-design}}
+\addcontentsline{toc}{section}{Data and Design}
+
+We use a variety of data sources and empirical approaches to understand the electoral consequences of the 2020 protests in support of the Black Lives Matter movement. We are interested ultimately in the \emph{causal} effect of protest exposure on these beliefs and behaviors, complicating our empirical approach. It seems highly probable that factors associated with protest formation are also associated with other political behaviors. Put differently, demonstrating a correlation between protest exposure and voting behavior might simply point to a third factor influencing them both. An example might be helpful: it seems possible that areas with large Black populations were politicized by the Trump Administration's response to the COVID-19 pandemic, which disproportionately impacted Black communities. This politicization---which may have occurred prior to the murder of George Floyd---could have increased an area's propensity to protest \emph{and} increased their likelihood of voting in November. Thus, any correlation between protest and turnout would be due not to the protests themselves, but the underlying politicization.
+
+To estimate the causal effect of protests on voter turnout, we leverage the known fact that protests are less likely to develop in inclement weather {[}CITE{]}. We use an instrumental variables (IV) approach that allows us to leverage random fluctuations in rainfall, the resulting protest formation, and eventual turnout and political behavior. IV setups are a common way for identifying causal relationships in the social sciences {[}CITE; CITE; CITE{]}.
+
+IV models do, however, have one very strict assumption: namely, the \emph{exclusion restriction.} In other words, we must assume that our exogenous variable (here, rainfall) is unrelated to our dependent variable in any way other than through our indogenous variable (here, protest formation). If there is reason to believe that rainfall influenced turnout in November or political beliefs, our estimates cannot determine the causal relationship. There is reason to be particularly concerned with a violation of this assumption when using rainfall: as \protect\hyperlink{ref-Mellon2021}{Mellon} (\protect\hyperlink{ref-Mellon2021}{2021}) shows, nearly 200 journal articles have used rainfall as an instrument in recent years. It is incumbent upon us, then, to demonstrate that the use of rainfall does not violate the exclusion restriction.
+
+To improve the validity of our approach, we do not use \emph{overall} rainfall, but rather relative rainfall during the period in which the protests occurred. George Floyd was murdered on May 25, and protests began in the days that followed, and peaked the weekend of June 6 (\protect\hyperlink{ref-Buchanan2020}{Buchanan, Bui, and Patel 2020}). As such, our instrumental variable is the amount of rainfall that fell between May 26 and June 7, 2020, \emph{relative} to the amount of rainfall that fell in that period between 2000 and 2019. This avoids a rainfall measure that simply captures generally rainier parts of the country, whose political orientation may be different. It is still possible, however, that relative rainfall in late May and early June could influence our dependent variables through other avenues. This seems especially likely if places with high relative rainfall in May and June \emph{also} had high rainfall in late October---such high rainfall could then reduce turnout {[}CITE{]}. However, as we demonstrate in the Supplemental Information, this is not the case. Relative rainfall in our period is only weakly associated with relative rainfall in late October (\emph{r} = 0.07). We thus conclude that our approach satisfies the exclusion restriction.
+
+\hypertarget{data}{%
+\subsection*{Data}\label{data}}
+\addcontentsline{toc}{subsection}{Data}
+
+Our data come from a variety of sources. To estimate relative rainfall, we turn to the National Oceanic and Atmospheric Administration (NOAA), which collects detailed weather data from around the country. NOAA records the estimated daily rainfall at some 13,000 locations around the country. We use the \texttt{rnoaa} (\protect\hyperlink{ref-Chamberlain2021}{Chamberlain 2021}) package to download and process this data. The weather sites include each site's latitude and longitude.
+
+Our data on protest formation comes from the U.S. Crisis Monitor, a project of the Armed Conflict Location \& Event Data Project (ACLED) and the Bridging Divides Initiative (BDI) at Princeton University.\footnote{See \url{https://acleddata.com/special-projects/us-crisis-monitor/}.} The U.S. Crisis compiled geocoded data on Black Lives Matter protests from around the United States throughout 2020. Using this data, we identify over 3,800 Black Lives Matter protests occurring between May 26 and June 7. These protests occurred in all 50 states and Washington, DC.
+
+\hypertarget{voter-file-data}{%
+\subsection*{Voter File Data}\label{voter-file-data}}
+\addcontentsline{toc}{subsection}{Voter File Data}
+
+To explore the relationship between protest exposure and individual-level turnout, we leverage the national registered voter file provided by data vendor L2. L2 collects the registered voter file from each state in the country and includes a host of self-reported and modelled information such as age, partisan affiliation, gender, and race / ethnicity. Importantly, they also indicate whether each voter participated in the 2020 general election, as well as past contests. These records are geocoded, and are mapped to home Census block groups. Taken as a whole, we have the individual-level voter records for the more than 180 million registered voters in the United States. We calculate each voter's exposure to relative rainfall by assigning them the relative rainfall of the nearest weather station. Their exposure to protest is calculated as the distance between their home address and the nearest Black Lives Matter protest. In addition to testing the relationship between distance to the closest protest (instrumented by rainfall), we control for individual- and neighborhood-level characteristics.
+
+The individual-level registered voter file data allow us to test our first hypothesis:
+
+\emph{H1}: Exposure to protest {[}increased / decreased{]} turnout. This was {[}especially / less{]} true for Black voters.
+
+There are some limitations to using the registered voter file to test for turnout effects. Most importantly, by looking at participation among registered voters, we may be ``selecting'' on the dependent variable (See \protect\hyperlink{ref-Nyhan2017}{Nyhan, Skovron, and Titiunik 2017}). In other words, registration \emph{itself} is a form of political participation. If protest organizers registered many new voters at the protests---an approach that did apparently occur {[}CITE{]}---but only a relatively small share of these new registrants actually voted, the net result may have been \emph{lower} turnout among registered voters but \emph{higher} turnout among eligible citizens.
+
+To sidestep this potential problem, we also aggregate the number of ballots cast up from the individual-level registered voter file to the Census {[}block group? tract?{]} level (\protect\hyperlink{ref-Morris2021}{Morris 2021}, \protect\hyperlink{ref-Morris2020}{2020}). The Census Bureau makes estimates of the citizen voting-age population available at this level. This provides a denominator for turnout that is unbiased by differential registered voters. By testing whether the distance between the center of a {[}tract / block group{]} to a protest (again instrumented by the relative rainfall at the weather station closest to the {[}tract / bg{]}) is related to that neighborhood's turnout, we estimate the causal effect of protest exposure on turnout among eligible citizens---and not just registered voters.
+
+DEALING WITH SPATIAL DEPENDENCIES
+TKTKTKTKTK {[}KASEY{]}
+
+\hypertarget{survey-data}{%
+\subsection*{Survey Data}\label{survey-data}}
+\addcontentsline{toc}{subsection}{Survey Data}
+
+While the administrative data gives us exceptional coverage of the relationships between protest and turnout across the country, turnout is a relatively blunt measure of political participation. Moreover, it seems possible that the BLM protests could have shifted voters' \emph{beliefs} about topics such as the police without bringing new participants into the voting booth.
+
+To understand the effect of protest exposure on political beliefs we turn to national survey data. We use two national surveys: the American National Election Study 2020 Time Series data (ANES) and the Cooperative Election Study (CES). Both are widely used among sociologists and political scientists to understand the political orientation of the American electorate. In addition to a rich set of data about individuals' political beliefs, these surveys also collect information about respondents' age, race, family income, and other characteristics. Each record includes the respondent's home ZIP code. ADD A LITTLE MORE ABOUT SURVEYS / SAMPLE SIZE / ETC
+
+Once again, our empirical strategy relies on using rainfall as an instrument for protest exposure. In the case of the national survey data, however, there are not respondents from all ZIP codes in the country. As such, we run our IV models in two steps. We begin by predicting the distance from the center of each ZIP code in the country to the closest protest as a function of rainfall. To do so, each ZIP code is assigned the relative rainfall of the closest weather station (or the mean relative rainfall of all weather stations in the ZIP code). We then measure the distance from the center of the ZIP code to the closest BLM protest (this is coded as 0 miles if a protest occurred anywhere inside the ZIP code). The predicted distance for each ZIP code is then merged with the national survey data.
+
+\hypertarget{constructing-political-attitudes-in-the-anes}{%
+\subsubsection*{Constructing Political Attitudes in the ANES}\label{constructing-political-attitudes-in-the-anes}}
+\addcontentsline{toc}{subsubsection}{Constructing Political Attitudes in the ANES}
+
+TKTKTKTKTK {[}LEANNE{]}
+
+\hypertarget{constructing-political-attitudes-in-the-ces}{%
+\subsubsection*{Constructing Political Attitudes in the CES}\label{constructing-political-attitudes-in-the-ces}}
+\addcontentsline{toc}{subsubsection}{Constructing Political Attitudes in the CES}
+
+TKTKTKTKTK {[}LEANNE{]}
+
+\newpage
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-Buchanan2020}{}%
+Buchanan, Larry, Quoctrung Bui, and Jugal K. Patel. 2020. {``Black {Lives Matter May Be} the {Largest Movement} in {U}.{S}. {History}.''} \emph{The New York Times: U.S.}, July 3, 2020. \url{https://www.nytimes.com/interactive/2020/07/03/us/george-floyd-protests-crowd-size.html}.
+
+\leavevmode\hypertarget{ref-Chamberlain2021}{}%
+Chamberlain, Scott. 2021. \emph{Rnoaa: '{NOAA}' {Weather Data} from {R}}. \url{https://CRAN.R-project.org/package=rnoaa}.
+
+\leavevmode\hypertarget{ref-Mellon2021}{}%
+Mellon, Jonathan. 2021. {``Rain, {Rain}, {Go Away}: 176 {Potential Exclusion}-{Restriction Violations} for {Studies Using Weather} as an {Instrumental Variable}.''} SSRN Scholarly Paper ID 3715610. {Rochester, NY}: {Social Science Research Network}. \url{https://doi.org/10.2139/ssrn.3715610}.
+
+\leavevmode\hypertarget{ref-Morris2020}{}%
+Morris, Kevin. 2020. {``Neighborhoods and {Felony Disenfranchisement}: {The Case} of {New York City}.''} \emph{Urban Affairs Review}, May, 1078087420921522. \url{https://doi.org/10.1177/1078087420921522}.
+
+\leavevmode\hypertarget{ref-Morris2021}{}%
+---------. 2021. {``Turnout and {Amendment Four}: {Mobilizing Eligible Voters Close} to {Formerly Incarcerated Floridians}.''} \emph{American Political Science Review}, 1--16. \url{https://doi.org/10.1017/S0003055421000253}.
+
+\leavevmode\hypertarget{ref-Nyhan2017}{}%
+Nyhan, Brendan, Christopher Skovron, and Rocío Titiunik. 2017. {``Differential {Registration Bias} in {Voter File Data}: {A Sensitivity Analysis Approach}.''} \emph{American Journal of Political Science} 61 (3): 744--60. \url{https://doi.org/10.1111/ajps.12288}.
+
+\end{CSLReferences}
+
+\end{document}

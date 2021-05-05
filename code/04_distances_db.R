@@ -1,4 +1,6 @@
 
+#mkMT1FycQKVlHo!AS2Fc
+
 
 ## connect to voter file sql database
 db <- dbConnect(SQLite(), "D:/national_file_post20.db")
@@ -75,7 +77,7 @@ for(s in dbListTables(db)){
     voters <- mutate(voters,
                      av_5 = (dist1 + dist2 + dist3 + dist4 + dist5) / 5) %>% # create average distance to 5 closest
       select(-dist2, -dist3, -dist4, -dist5) %>%
-      rename(dist = dist1) ## keep closest protest
+      rename(dist = dist1) ## keep closest protest#
     
     cleanup(c("voters", "vps", "s", "tabs", "db_final"))
     

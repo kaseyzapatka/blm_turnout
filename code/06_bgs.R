@@ -79,13 +79,53 @@ census <- readRDS("../regular_data/census_bgs_19.rds")
 bgs <- left_join(bgs, census)
 
 bgs$state <- factor(substring(bgs$GEOID, 1, 2))
+saveRDS(bgs, "temp/bg1.rds")
 
-summary(lm(dist ~ I(log(rel + 1)) + pop_dens + nh_white + nh_black + median_income + unem + some_college +
-             median_age, bgs))
+################################
+bgs <- readRDS("temp/bg1.rds")
+to <- readRDS("temp/bg_blm.rds") %>% 
+  select(-state)
+bgs <- inner_join(bgs, to)
 
-summary(lm(dist ~ I(log(rel + 1)), filter(bgs, is.finite(rel), is.finite(pop_dens))))
+cvap <- vroom("../regular_data/CVAP_2015-2019_ACS_csv_files/BlockGr.csv") %>% 
+  filter(lntitle == "Total") %>% 
+  select(GEOID = geoid, cvap = cvap_est) %>% 
+  mutate(GEOID = substring(GEOID, 8))
 
-library(AER)
+bgs <- left_join(bgs, cvap) %>% 
+  mutate_at(vars(starts_with("General")), ~ . / cvap)
 
-m1 <- ivreg(vap ~ dist + pop_dens + nh_white + nh_black + median_income + unem + some_college +
-              median_age | relr, data = bgs)
+bgs$lnd <- log(bgs$dist + 1)
+bgs$lnrel <- log(bgs$rel + 1)
+
+m1 <- ivreg(General_2020_11_03 ~ lnd + nh_black +
+              nh_white + median_age +
+              log(pop_dens) + median_income + some_college +
+              General_2018_11_06 +
+              General_2016_11_08 +
+              General_2014_11_04 +
+              General_2012_11_06| . - lnd + lnrel,
+            data = filter(bgs, cvap != 0, is.finite(pop_dens)))
+
+summary(m1, diagnostics = T)
+summary(lm(lnd ~ lnrel, filter(bgs, is.finite(pop_dens))))
+summary(lm(lnd ~ lnrel + log(pop_dens+1) + log(nh_black+1), filter(bgs, is.finite(pop_dens))))
+m2 <- lm(lnd ~ lnrel + log(pop_dens+1) + log(nh_black+1), filter(bgs, is.finite(pop_dens)))
+
+bgs$pred <- predict(m2, bgs)
+
+m3 <- lm(General_2020_11_03 ~ pred *log(pop_dens) + nh_black +
+           nh_white + median_age +
+           log(pop_dens) + median_income + some_college +
+           General_2018_11_06 +
+           General_2016_11_08 +
+           General_2014_11_04 +
+           General_2012_11_06,
+         data = filter(bgs, cvap != 0, is.finite(pop_dens)))
+summary(m3)
+############################################
+
+
+protests <- read_xlsx("raw_data/protests/USA_2020_Nov14.xlsx") %>%
+  filter(EVENT_DATE > "2020-05-25",
+         EVENT_DATE <= "2020-06-07")
