@@ -29,7 +29,8 @@ cces <- fread("../regular_data/cces/CCES20_Common_OUTPUT.csv") %>%
          party = CC20_360,
          police = CC20_307,
          starts_with("CC20_334"),
-         id) %>% 
+         id,
+         lookupzip) %>% 
   mutate(voted = voted == 5) %>% 
   mutate_at(vars(gender, educ, race, state, party), as.factor) %>% 
   mutate(white = race == 1,
@@ -130,3 +131,9 @@ ggplot(h) +
 Second stage covariates: Predicted distance from protest, age, gender, education. state.") +
   # coord_cartesian(xlim = c(0, 50), ylim = c(0.85, 1)) +
   scale_y_continuous(labels = scales::percent)
+
+
+
+
+summary(lm(log(dist + 1) ~ log(rel + 1), zip_data))
+summary(lm(log(dist + 1) ~ log(rel + 1) + log(pop_dens + 1) + log(nh_black + 1), zip_data))

@@ -101,13 +101,21 @@ zip_data <- left_join(zip_data,
                         summarize(rel2 = mean(rel)))%>% 
   mutate(rel = ifelse(is.na(rel2), rel, rel2)) %>% 
   select(-rel2)
-# 
-# zip_data$to_2020 <- rnorm(nrow(zip_data), mean = 0.5, sd = 0.1)
-# 
-# zip_data <- zip_data[complete.cases(select(zip_data, dist, rel, pop_dens, nh_black)), ]
-# 
-# m1 <- lm(log(dist+1) ~ log(rel+1) + log(pop_dens + 1) + log(nh_black + 1), zip_data)
-# 
-# zip_data$predicted_distance <-m1$fitted.values
-# 
-# saveRDS(zip_data, "temp/zip_data.rds")
+
+zip_data$to_2020 <- rnorm(nrow(zip_data), mean = 0.5, sd = 0.1)
+
+zip_data <- zip_data[complete.cases(select(zip_data, dist, rel, pop_dens, nh_black)), ]
+
+## read z score data 
+
+zscore <- readRDS("temp/zips_interp_rain.rds") %>% 
+  select(GEOID10 = ZCTA5CE10, z)
+
+zip_data <- left_join(zip_data, zscore)
+
+m1 <- lm(log(dist+1) ~ z + log(pop_dens + 1) + log(nh_black + 1), zip_data)
+
+zip_data$predicted_distance <- m1$fitted.values
+
+
+saveRDS(zip_data, "temp/zip_data.rds")
