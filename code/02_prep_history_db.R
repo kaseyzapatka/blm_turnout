@@ -2,10 +2,10 @@
 
 
 ### start by connecting to an (empty, at first) SQL database where we'll dump the voter files
-db <- dbConnect(SQLite(), "D:/national_file_post20_history.db")
+db <- dbConnect(SQLite(), "E:/national_file_post20_history.db")
 
 ##grab all the file names
-j <- list.files("D:/national/post_2020", full.names = T,
+j <- list.files("E:/national/post_2020", full.names = T,
                 pattern = "*.tab", include.dirs = T, recursive = T)
 
 ## drop the demographic files - only interested in history here

@@ -12,7 +12,7 @@ for(s in dbListTables(db)){
   code_good <- unique(filter(fips_codes, state == s)$state_code)
   if(!(s %in% tabs)){
     ## read in protest locations
-    protests <- read_xlsx("raw_data/protests/USA_2020_Nov14.xlsx") %>%
+    protests <- read_xlsx("C:/Users/morrisk/Desktop/USA_2020_2021_Apr30.xlsx") %>%
       filter(EVENT_DATE > "2020-05-25",
              EVENT_DATE <= "2020-06-07")
     

@@ -19,25 +19,26 @@ rainsp <- SpatialPointsDataFrame(rainsp, rainfall)
 
 
 for(s in unique(filter(fips_codes, state_code < 57)$state_code)){
-  bgs <- block_groups(state = s, class = "sp")
-  
-  print(s)
-  
-  r <- raster(bgs, ncols = 100, nrows = 100)
-  ##############################
-  
-  gs <- gstat(formula=z~1, locations=rainsp)
-  idw <- interpolate(r, gs)
-  
-  districts.reprojected <- spTransform(bgs, CRS(projection(idw)))
-  
-  extracted.values <- raster::extract(idw, districts.reprojected)
-  
-  avs <- sapply(extracted.values, mean)
-  
-  bgs@data$z <- avs
-  saveRDS(bgs@data, paste0("temp/bgs_interp_", s, ".rds"))
-  
+  if(!file.exists(paste0("temp/bgs_interp_", s, ".rds"))){
+    bgs <- block_groups(state = s, class = "sp")
+    
+    print(s)
+    
+    r <- raster(bgs, ncols = 100, nrows = 100)
+    ##############################
+    
+    gs <- gstat(formula=z~1, locations=rainsp)
+    idw <- interpolate(r, gs)
+    
+    districts.reprojected <- spTransform(bgs, CRS(projection(idw)))
+    
+    extracted.values <- raster::extract(idw, districts.reprojected)
+    
+    avs <- sapply(extracted.values, mean)
+    
+    bgs@data$z <- avs
+    saveRDS(bgs@data, paste0("temp/bgs_interp_", s, ".rds"))
+    }
 }
 
 

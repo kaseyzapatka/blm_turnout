@@ -1,7 +1,7 @@
 
 ## read protest data
 
-protests <- read_xlsx("raw_data/protests/USA_2020_Nov14.xlsx") %>%
+protests <- read_xlsx("raw_data/protests/USA_2020_2021_Apr30.xlsx") %>%
   filter(EVENT_DATE > "2020-05-25",
          EVENT_DATE <= "2020-06-07",
          ASSOC_ACTOR_1 == "BLM: Black Lives Matter") %>% 
@@ -26,11 +26,6 @@ for(s in unique(filter(fips_codes, state_code <= 56)$state_code)){
   protests <- mutate(protests,
                      GEOID = ifelse(is.na(GEOID), hold, GEOID))
   
-  pings  <- SpatialPoints(rainfall[,c('lon','lat')], proj4string = zips@proj4string)
-  rainfall$hold <- over(pings, zips)$GEOID
-  
-  rainfall <- mutate(rainfall,
-                     GEOID = ifelse(is.na(GEOID), hold, GEOID))
   
   area <- as.data.table(dplyr::select(zips@data, GEOID, area = ALAND,
                                       lat = INTPTLAT,
@@ -43,28 +38,6 @@ for(s in unique(filter(fips_codes, state_code <= 56)$state_code)){
   ## merge census data to zip code area, centroid data
   zip_data <- full_join(select(pop, GEOID = GEOID, population, nh_black), area) %>% 
     mutate(pop_dens = population / area)
-  
-  ############################
-  ## turn zip code centroids into spatial data (the zip codes without weather stations, that is)
-  zip_points_rain <- SpatialPoints(
-    select(zip_data, x = lon, y = lat)
-  )
-  ## turn weahter site data into spatial
-  weather_sites <- SpatialPoints(
-    select(rainfall, x = lon, y = lat)
-  )
-  
-  ## find closest weather station to center of each zip code
-  tree <- createTree(coordinates(weather_sites))
-  inds <- knnLookup(tree, newdat = coordinates(zip_points_rain), k = 1)
-  
-  zip_data <- left_join(cbind(zip_data, inds),
-                   select(rainfall, id, rel),
-                   by = c("inds" = "id")) %>% 
-    select(-inds)
-  
-  ### recombine the zipcode with a waether station to the zips we had to find the closest station for
-  
   ####################
   ## turn *all* zip codes into spatial data
   zip_points_protest <- SpatialPoints(
@@ -97,20 +70,13 @@ for(s in unique(filter(fips_codes, state_code <= 56)$state_code)){
 
 #################################### read protest data
 
-protests <- read_xlsx("raw_data/protests/USA_2020_Nov14.xlsx") %>%
+protests <- read_xlsx("raw_data/protests/USA_2020_2021_Apr30.xlsx") %>%
   filter(EVENT_DATE > "2020-05-25",
          EVENT_DATE <= "2020-06-07",
          ASSOC_ACTOR_1 == "BLM: Black Lives Matter") %>% 
   mutate(id = row_number())
 
 protests$GEOID <- NA
-
-rainfall <- readRDS("temp/rainfall_processed_2000_2020.rds") %>%
-  ungroup() %>%
-  mutate(id = row_number(),
-         lon = ifelse(lon > 180, -360 + lon, lon))
-
-rainfall$GEOID <- NA
 
 ## read zipcode spatial data
 for(s in unique(filter(fips_codes, state_code <= 56)$state_code)){
@@ -121,19 +87,8 @@ for(s in unique(filter(fips_codes, state_code <= 56)$state_code)){
   protests <- mutate(protests,
                      GEOID = ifelse(is.na(GEOID), hold, GEOID))
   
-  pings  <- SpatialPoints(rainfall[,c('lon','lat')], proj4string = zips@proj4string)
-  rainfall$hold <- over(pings, zips)$GEOID
-  
-  rainfall <- mutate(rainfall,
-                     GEOID = ifelse(is.na(GEOID), hold, GEOID))
 }
 
-rainfall <- rainfall %>% 
-  group_by(GEOID) %>% 
-  summarize(rel = mean(rel))
-
-
-saveRDS(rainfall, "temp/rainfall_bgs.rds")
 saveRDS(protests, "temp/protest_bgs.rds")
 
 #######################################################
@@ -146,13 +101,5 @@ all_tracts <- rbindlist(lapply(files, readRDS))
 all_tracts <- mutate(all_tracts,
                      dist = ifelse(GEOID %in% readRDS("temp/protest_bgs.rds")$GEOID, 0, dist))
 
-
-all_tracts <- left_join(all_tracts,
-                        readRDS("temp/rainfall_bgs.rds") %>% 
-                          rename(rel2 = rel)) %>% 
-  mutate(rel = ifelse(is.na(rel2), rel, rel2)) %>% 
-  select(-rel2)
-
-all_tracts$to_2020 <- rnorm(nrow(all_tracts), mean = 0.5, sd = 0.1)
 
 saveRDS(all_tracts, "temp/bgs_data.rds")
