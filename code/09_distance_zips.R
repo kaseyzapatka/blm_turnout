@@ -102,8 +102,6 @@ zip_data <- left_join(zip_data,
   mutate(rel = ifelse(is.na(rel2), rel, rel2)) %>% 
   select(-rel2)
 
-zip_data$to_2020 <- rnorm(nrow(zip_data), mean = 0.5, sd = 0.1)
-
 zip_data <- zip_data[complete.cases(select(zip_data, dist, rel, pop_dens, nh_black)), ]
 
 ## read z score data 
@@ -119,3 +117,4 @@ zip_data$predicted_distance <- m1$fitted.values
 
 
 saveRDS(zip_data, "temp/zip_data.rds")
+saveRDS(zip_data, "C:/Users/morrisk/Dropbox/blm_turnout/zip_data.rds")

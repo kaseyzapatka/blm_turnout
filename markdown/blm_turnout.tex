@@ -5,14 +5,13 @@
 \documentclass[
   12pt,
 ]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
-  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -44,7 +43,7 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -113,12 +112,12 @@
 
 \title{Black Lives Matter Protests and Voter Turnout\thanks{Prepared for the 2021 Annual Meeting of the American Sociological Association. Draft---please do not cite without permission.}}
 \author{Cameron Kimble\footnote{Research and Program Associate, Brennan Center for Justice (\href{mailto:cameron.kimble@nyu.edu}{\nolinkurl{cameron.kimble@nyu.edu}})} \and Leanne Fan\footnote{PhD Student, Department of Sociology, CUNY Graduate Center (\href{mailto:lfan@gradcenter.cuny.edu}{\nolinkurl{lfan@gradcenter.cuny.edu}})} \and Kasey Zapatka\footnote{PhD Candidate, Department of Sociology, CUNY Graduate Center (\href{mailto:kzapatka@gradcenter.cuny.edu}{\nolinkurl{kzapatka@gradcenter.cuny.edu}})} \and Kevin Morris\footnote{PhD Student, Department of Sociology, CUNY Graduate Center (\href{mailto:kmorris@gradcenter.cuny.edu}{\nolinkurl{kmorris@gradcenter.cuny.edu}})}}
-\date{July 15, 2021}
+\date{August 03, 2021}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-In the summer of 2020, Americans took to the streets in larger numbers than ever before demanding racial justice. Following the police murders of George Floyd and Breonna Taylor, an enormous multiracial coalition voiced their dissatisfaction with the state of policing in the United States. These mass protests took place shortly before a presidential election, and the incumbent loudly voiced his disdain for protesters and their political message. This paper explores one aspect of the impact of the Black Lives Matter (BLM) movement. Using a national voter file and data on protest location, we aim to estimate the causal impact of physical proximity to a BLM protest on voter turnout and Americans' political beliefs.
+In the summer of 2020, Americans took to the streets in larger numbers than ever before demanding racial justice. Following the police murders of George Floyd and Breonna Taylor, an enormous multiracial coalition voiced their dissatisfaction with the state of policing in the United States. These mass protests took place shortly before a presidential election, and the incumbent loudly voiced his disdain for protesters and their political message. This paper explores one aspect of the impact of the Black Lives Matter (BLM) movement. Using a national voter file and data on protest location, we aim to estimate the causal impact of physical proximity to a BLM protest on voter turnout.
 \end{abstract}
 
 \pagenumbering{gobble}
@@ -146,7 +145,7 @@ It is important to note, however, that much of this work has focused on the effe
 
 While past work has focused on the relationship between geographical proximity and turnout, there is reason to believe that the BLM protests in 2020 operated differently than past social movements. The proliferation of social media, the nationalization of traditional media, and the polarization of Donald Trump's re-election campaign turned local protests into a national issue. The 2020 BLM protests demonstrate how protest movements can raise awareness of social discontent and increase its salience in the mind of the public. Informational and network effects were amplified with the advent of social media, and by facilitating information exchange, sites like Twitter and Facebook make it easier for large groups of people to organize collective demonstrations. However, unique to the modern era is how these demonstrations are portrayed. Wasow (\protect\hyperlink{ref-Wasow2020}{2020}) offers the concept of agenda seeding to describe how protestors drive media coverage and framing, congressional speech, and public opinion on civil rights, finding that nonviolent protests led to sympathy, especially when met with repression, and destructive protests led to themes centered on ``law and order.'' In the current political environment, portrayals of the protests differed along ideological lines, and so reinforced already existing political beliefs (see, for instance, \protect\hyperlink{ref-SignalAI2020}{\emph{Signal AI} 2020}).
 
-Noting the gradual decline of local political news, researchers increasingly agree that American politics have become more and more nationalized in recent decades (\protect\hyperlink{ref-Fontana2018}{Fontana 2018}; \protect\hyperlink{ref-Moskowitz2021}{Moskowitz 2021}). Indeed, to say ``Donald Trump,'' or in this case, Black Lives Matter ``is to cue a set of meaningful associations with the national parties, the social groups that support them, and the positions that they take'' (\protect\hyperlink{ref-Hopkins2018}{Hopkins 2018}: 2). As such, we expect that proximity to a local BLM protest may have operated differently than social movements in the past. In particular, we expect the mobilizing effect at the local level was smaller than historical social movements. Given the polarization and prominence of national coverage, we suspect that individuals interpreted local protests through national media frames, and so were mobilized to vote for BLM and against Trump, or against ``rioting'' and for Trump. Whether the presence of social media and its heightening of network and informational effects motivated people to vote for or against Trump largely depends upon a person's preexisting political beliefs, and thus their preferred media. Put more simply, people motivated to vote by the BLM Movement voted in reaction to the national protest movement, not its local iterations.
+Noting the gradual decline of local political news, researchers increasingly agree that American politics have become more and more nationalized in recent decades (\protect\hyperlink{ref-Fontana2018}{Fontana 2018}; \protect\hyperlink{ref-Moskowitz2021}{Moskowitz 2021}). Indeed, to say ``Donald Trump,'' or in this case, Black Lives Matter ``is to cue a set of meaningful associations with the national parties, the social groups that support them, and the positions that they take'' (\protect\hyperlink{ref-Hopkins2018}{Hopkins 2018, 2}). As such, we expect that proximity to a local BLM protest may have operated differently than social movements in the past. In particular, we expect the mobilizing effect at the local level was smaller than historical social movements. Given the polarization and prominence of national coverage, we suspect that individuals interpreted local protests through national media frames, and so were mobilized to vote for BLM and against Trump, or against ``rioting'' and for Trump. Whether the presence of social media and its heightening of network and informational effects motivated people to vote for or against Trump largely depends upon a person's preexisting political beliefs, and thus their preferred media. Put more simply, people motivated to vote by the BLM Movement voted in reaction to the national protest movement, not its local iterations.
 
 Although we expect the local effects of BLM protests on \emph{who} voted to be relatively small, the protests may have influenced \emph{how} individuals voted. Scholars analyze the reciprocal relationship between social movements and elections more broadly than turnout alone. Political parties have attempted to capitalize on discontent by claiming issue ownership on social issues and including activists' perspectives in their party platforms (\protect\hyperlink{ref-Fetner2008}{Fetner 2008}). Grievance is harnessed by political parties to mobilize groups of voters(\protect\hyperlink{ref-Leege2002}{Leege et al. 2002}), and when social movements organized around a particular grievance challenge the status quo, mobilization efforts from the associated political party intensifies, in hopes of increasing voter turnout (\protect\hyperlink{ref-Winders1999}{Winders 1999}). As a result, protests that express liberal issues lead to a greater percentage of the two-party vote share for Democratic candidates, while protests that espouse conservative issues offer Republican candidates a greater share of the two-party vote (\protect\hyperlink{ref-Gillion2018}{Gillion and Soule 2018}). Put differently, there is little evidence of an electoral ``backlash''---that is, that social movements in support of liberal causes end up benefiting conservative candidates, and vice versa.
 
@@ -212,7 +211,7 @@ Using an inverse distance weighting approach, we estimate the rainfall z-score f
 
 Our empirical strategy is inherently spatial by design: we are interested in the causal effects of physical distance to a protest, and our instrumental variable leverages geographical variation in rainfall. These spatial aspects demand that we pay special econometric attention to spatial relationships. \emph{Spatial dependence}, or \emph{spatial autocorrelation}, arises when ``values observed at one location or region\ldots{} depend on the values of neighboring observations at nearby locations'' (\protect\hyperlink{ref-LeSage2009}{LeSage and Pace 2009, 2}). Since nearer things are more alike than distant things, \emph{ceteris paribus}, a value on a given spatial unit is more alike its neighbors than those farther away (\protect\hyperlink{ref-Tobler1970}{Tobler 1970}). It is this similarity of values clustered in space that violates the ``regression assumption that the error terms of individual observations can be considered independent of one another'' (\protect\hyperlink{ref-Ward2008}{Ward and Gleditsch 2008}, pg 33). When researchers fail to adjust for spatial dependence, it results in a larger than warranted \(t\) value that increases the chance of Type 1 error and biases the estimates (\protect\hyperlink{ref-Ward2008}{Ward and Gleditsch 2008}).
 
-There are three primary spatial relationships in our project. First, census block group turnout in one block group is likely to be very similar, and therefore spatially autocorrelated, with the turnout of those nearby because some characteristic that motivates political participation is likely clustered in space. Figure \ref{fig:maps} provides visual evidence of this spatial dependence (first-order spatial effects) as we see clusters of dark (low turnout) and light (high turnout) values. Second, we are also concerned by spatial dependence in the outcome variable in our first stage model---distance from a protest. The distance of one block group is closely related to those of its neighbors because that block group and its neighbors by definition and block group construction are similar distances from a protest. Figure \ref{fig:maps} also presents clear evidence of first-order spatial effects in that we see obvious clusters of both larger and smaller distances from BLM protests. Thirdly, we are also concerned about spatial dependence in our instrument, rainfall, since rainfall is not randomly distributed because neighboring block groups are more likely to ``experience similar weather on any given day, and therefore our instrument naturally exhibits spatial correlation'' (\protect\hyperlink{ref-Hansford2010}{Hansford and Gomez 2010, 281}; see also \protect\hyperlink{ref-Betz2020}{Betz, Cook, and Hollenbach 2020}). Figure \ref{fig:maps} illustrates this point very clearly.
+There are three primary spatial relationships in our project. First, census block group turnout in one block group is likely to be very similar, and therefore spatially autocorrelated, with the turnout of those nearby because some characteristic that motivates political participation is likely clustered in space. Figure X provides visual evidence of this spatial dependence (first-order spatial effects) as we see clusters of dark (low turnout) and light (high turnout) values. Second, we are also concerned by spatial dependence in the outcome variable in our first stage model---distance from a protest. The distance of one block group is closely related to those of its neighbors because that block group and its neighbors by definition and block group construction are similar distances from a protest. Figure X also presents clear evidence of first-order spatial effects in that we see obvious clusters of both larger and smaller distances from BLM protests. Thirdly, we are also concerned about spatial dependence in our instrument, rainfall, since rainfall is not randomly distributed because neighboring block groups are more likely to ``experience similar weather on any given day, and therefore our instrument naturally exhibits spatial correlation'' (\protect\hyperlink{ref-Hansford2010}{Hansford and Gomez 2010, 281}; see also \protect\hyperlink{ref-Betz2020}{Betz, Cook, and Hollenbach 2020}). Figure \ref{fig:maps} illustrates this point very clearly.
 
 \begin{figure}
 \hypertarget{fig:maps}{%
@@ -222,19 +221,27 @@ There are three primary spatial relationships in our project. First, census bloc
 }
 \end{figure}
 
-We confirm the statistical presence (second-order spatial effects) of spatial dependence with a global correlation coefficient known as a \emph{Moran's I} statistic, which tests for ``a linear association between a value and a weighted-average of its neighbors'' and is often used as a test for spatial autocorrelation (\protect\hyperlink{ref-Ward2008}{Ward and Gleditsch 2008, 23}; \protect\hyperlink{ref-Bivand2013}{Bivand, Pebesma, and Gómez-Rubio 2013, 261}). Table \ref{tab:moran} reports significant, \emph{preliminary}, Moran's I values for all three key variables: census block group turnout, distance from a protest, and rainfall across the country. Moran's I values for turnout suggest moderate, positive autocorrelation (0.37), whereas distance reports weak, positive autocorrelation (0.25). Moran's I for rainfall suggests very high, positive spatial autocorrelation (0.95). These results mean OLS and IV estimates are not reliable and we must correct for spatial dependence in both stages.
+We confirm the statistical presence (second-order spatial effects) of spatial dependence with a global correlation coefficient known as a \emph{Moran's I} statistic, which tests for ``a linear association between a value and a weighted-average of its neighbors'' and is often used as a test for spatial autocorrelation (\protect\hyperlink{ref-Ward2008}{Ward and Gleditsch 2008, 23}; \protect\hyperlink{ref-Bivand2013}{Bivand, Pebesma, and Gómez-Rubio 2013, 261}). Table X reports significant, \emph{preliminary}, Moran's I values for all three key variables: census block group turnout, distance from a protest, and rainfall across the country. Moran's I values for turnout suggest moderate, positive autocorrelation (0.37), whereas distance reports weak, positive autocorrelation (0.25). Moran's I for rainfall suggests very high, positive spatial autocorrelation (0.95). These results mean OLS and IV estimates are not reliable and we must correct for spatial dependence in both stages.
 
-\begin{figure}
-\hypertarget{tab:moran}{%
+\begin{singlespace}
+\begin{table}[H]
+
+\caption{\label{tab:moran}\label{tab:morans} Moran's I statistics for Distance, Turnout, and Rainfall}
 \centering
-\includegraphics{"../temp/moran.png"}
-\caption{Moran's I of Key Variables}\label{tab:moran}
-}
-\end{figure}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}lll}
+\toprule
+Measure & Distance & Turnout & Rainfall\\
+\midrule
+\cellcolor{gray!6}{Moran's I} & \cellcolor{gray!6}{0.25} & \cellcolor{gray!6}{0.38} & \cellcolor{gray!6}{0.95}\\
+p-value & (0.00) & (0.00) & (0.00)\\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{singlespace}
 
 For both the first and second stages, we plan to run a SDEM instead of a SDM for three reasons.\footnote{We avoid running a SARAR (SAC) model because there are numerous drawbacks, specifically its sensitivity to misspecification (see \protect\hyperlink{ref-LeSage2014}{LeSage 2014})} First, we suspect local, not global effects. By this we mean that although ``neighbors affect each other, this effect does not propagate throughout the entire space'' (\protect\hyperlink{ref-Burkey2018}{Burkey 2018, 17}). We think neighboring block groups will be more similar to those close by but not to all block groups in the country or even in the same state. Second, we prefer SDEM to SDM because it allows for lagged values of predictors. In the first stage, we correct for the non-random distribution of our instrument, rainfall, which we suspect will have effects on our outcome by definition of IV design, but also local effects on contiguous block groups, not all block groups throughout the country. In the second stage, the share of black voters or population density (along with other controls) will have effects on our outcome and therefore their spatial dependence will need to be controlled for. Third, SDEM is more efficient in our case. Although SDEM does not explicitly model spatial dependence in the form of a lagged outcome \(\rho{Wy}\), which we certainly suspect, ``spatial dependence from the dependent variable will land in the disturbances'' \(\lambda{Wu}\), which are likely to produce a ``significant coefficient estimate for \(\lambda\) that might be similar in magnitude to the true value of \(\rho\)'' (\protect\hyperlink{ref-LeSage2014}{LeSage 2014, 14}). Our SDEM models will take the following form:
 
-\(y = \alpha{} + X\beta_1{} + XW\beta_2{} + u,\) where \$ u = \lambda{Wu} + \epsilon{}\$
+\(y = \alpha{} + X\beta_1{} + XW\beta_2{} + u\), where \(u = \lambda{Wu} + \epsilon{}\)
 
 The Likelihood Ratio (LR) approach then allows us to test whether reduced models are more appropriate in diagnosing the specific forms of spatial dependence we expect.\footnote{We use a modern approach to determining model specification that is preferable to a classical approach (see \protect\hyperlink{ref-LeSage2009}{LeSage and Pace 2009}; \protect\hyperlink{ref-Burkey2018}{Burkey 2018} for a discussion of the relative merits.)} Using results from the LR tests and comparing the resulting ``residuals for remaining spatial association'' in our spatially adjusted models with those of reduced form (Spatial Error Models (SEM), Spatially Lagged X Model (SLX), and OLS) will help us determine which model specification, and therefore which estimates are most reliable in our IV setup (\protect\hyperlink{ref-Ward2008}{Ward and Gleditsch 2008, 28}). We plan to replicate this analysis for our ZIP-code-level data for similar reasons.
 
@@ -244,7 +251,7 @@ The Likelihood Ratio (LR) approach then allows us to test whether reduced models
 
 While the administrative data gives us exceptional coverage of the relationships between protest and turnout across the country, turnout is a relatively blunt measure of political participation. Moreover, it seems possible that the BLM protests could have shifted voters' \emph{beliefs} about topics such as the police without bringing new participants into the voting booth.
 
-To understand the effect of protest exposure on political beliefs we turn to national survey data. We use two national surveys: the American National Election Study 2020 Time Series data (ANES) and the Cooperative Election Study (CES). Both are widely used among sociologists and political scientists to understand the political orientation of the American electorate. In addition to a rich set of data about individuals' political beliefs, these surveys also collect information about respondents' age, race, family income, and other characteristics. Each record includes the respondent's home ZIP code. The current draft includes analysis of the CES data, while we intend to incorporate data from the ANES in a future draft. The 2020 CES includes data from 61,000 respondents, weighed to represent the national adult population
+To understand the effect of protest exposure on political beliefs we turn to national survey data. We use the Cooperative Election Study (CES), a widely used survey among sociologists and political scientists to understand the political orientation of the American electorate. In addition to a rich set of data about individuals' political beliefs, these surveys also collect information about respondents' age, race, family income, and other characteristics. Each record includes the respondent's home ZIP code. The 2020 CES includes data from 61,000 respondents, weighed to represent the national adult population
 
 Once again, our empirical strategy relies on using rainfall as an instrument for protest exposure. In the case of the national survey data, however, there are not respondents from all ZIP codes in the country. The process for estimating the distance to protest using a rainfall z-score for each ZIP code in the country is identical to that described above for tracts and block groups.
 
@@ -260,7 +267,7 @@ The addition of survey data to the previous analysis could illuminate potential 
 
 Further, we hypothesize that while the protests might have changed political attitudes---even if they did not impact turnout.. We use the survey to understand the extent to which the protests affect people's attitudes around racial resentment and criminal justice. In particular, we ask whether geographical proximity caused changes in racial beliefs among CES respondents, and whether it impacted respondents' views of American police.
 
-Scholars commonly use the ``racial resentment'' score to analyze how racist survey respondents are (\protect\hyperlink{ref-Wilson2011}{Wilson and Davis 2011}). The racial resentment score is built from a battery of four questions, originally proposed by \protect\hyperlink{ref-Kinder1981}{Kinder and Sears} (\protect\hyperlink{ref-Kinder1981}{1981}) and included in ANES surveys since 1988. These questions aim to captures symbolic racism as ``a blend of antiblack affect and the kind of traditional American moral values embodied in the Protestant Ethic\ldots a form of resistance to change in the racial status quo based on moral feelings that blacks violate such traditional American values as individualism and self-reliance, the work ethic, obedience, and discipline'' (\protect\hyperlink{ref-Kinder1981}{Kinder and Sears 1981, 416}).\footnote{Despite the ubiquity of the racial resentment, this measure has been criticized for its imprecision---it is not entirely clear that these questions only captures racial resentment, specifically whether ``black Americans are undeserving of special considerations on the basis of racial group membership alone,'' as opposed to additionally capturing racial bigotry, stereotype or prejudice (\protect\hyperlink{ref-Wilson2011}{Wilson and Davis 2011, 119}).} In the CES 2020 survey, we develop a racial resentment index using 5 questions, 3 of which are only given to self-reported non-White respondents. The survey responses from these questions are averaged to create a single ``racial resentment index,'' regardless of respondent race, to a 1-5 scale, 5 being the most ``racially resentful.'' The questions used to construct the racial resentment scores are included in the Appendix.
+Scholars commonly use the ``racial resentment'' score to analyze how racist survey respondents are (\protect\hyperlink{ref-Wilson2011}{Wilson and Davis 2011}). The racial resentment score is built from a battery of four questions, originally proposed by \protect\hyperlink{ref-Kinder1981}{Kinder and Sears} (\protect\hyperlink{ref-Kinder1981}{1981}). These questions aim to captures symbolic racism as ``a blend of antiblack affect and the kind of traditional American moral values embodied in the Protestant Ethic\ldots a form of resistance to change in the racial status quo based on moral feelings that blacks violate such traditional American values as individualism and self-reliance, the work ethic, obedience, and discipline (\protect\hyperlink{ref-Kinder1981}{Kinder and Sears 1981, 416}).''\footnote{Despite the ubiquity of the racial resentment, this measure has been criticized for its imprecision---it is not entirely clear that these questions only captures racial resentment, specifically whether ``black Americans are undeserving of special considerations on the basis of racial group membership alone,'' as opposed to additionally capturing racial bigotry, stereotype or prejudice (\protect\hyperlink{ref-Wilson2011}{Wilson and Davis 2011, 119}).} In the CES 2020 survey, we develop a racial resentment index using 5 questions, 3 of which are only given to self-reported non-White respondents. The survey responses from these questions are averaged to create a single ``racial resentment index,'' regardless of respondent race, to a 1-5 scale, 5 being the most ``racially resentful.'' The questions used to construct the racial resentment scores are included in the Appendix.
 
 Finally, in 2020 CES, there is a new suite of 8 criminal justice and policing questions. While this paper is among the first to leverage these questions in an academic study, they are conceived of as a ``police attitude index'' (see \protect\hyperlink{ref-Agadjanian2021}{Agadjanian 2021}). The 8 questions used to construct this index are included in the Appendix. The survey responses from these questions are averaged to create a single ``police attitude index,'' to a 1-2 scale, 2 being the most ``pro-police.''
 
@@ -280,9 +287,11 @@ Future drafts of this paper will investigate whether there is evidence of ``back
 \subsection*{Overall Turnout Effects}\label{overall-turnout-effects}}
 \addcontentsline{toc}{subsection}{Overall Turnout Effects}
 
-In Table \ref{tab:bg-tract-dist} we demonstrate that, as expected, higher rainfall is strongly associated with increased distance to the nearest BLM protest even after controlling for other pertinent neighborhood characteristics that should influence protest formation such as age, race, and partisan affiliation. A one-standard deviation increase in a geographical unit's rainfall relative to the average is associated with an increase of roughly 3-4\% in distance to the nearest protest.
+In Table \ref{tab:bg-tract-dist} we demonstrate that, as expected, higher rainfall is strongly associated with increased distance to the nearest BLM protest even after controlling for other pertinent neighborhood characteristics that should influence protest formation such as age, race, and partisan affiliation. A one-standard deviation increase in a geographical unit's rainfall relative to the average is associated with an increase of roughly 4-6\% in distance to the nearest protest.
 
-\textbf{INSERT TABLE ABOUT HERE. TEMPORARILY LOST DUE TO HARD DRIVE FAILURE.}
+\begin{singlespace}
+\input{"../temp/tract_bg_dist.tex"}
+\end{singlespace}
 
 In Table \ref{tab:bg-tract-to} we present the results of the full instrumental variables models for block groups (models 1 and 2) and tracts (models 3 and 4). In models 1 and 3 we present the overall turnout effects of living near a protest, while models 2 and 4 ask whether the causal effect was moderated by the share of the tract or block group that is non-Hispanic Black.
 
@@ -290,22 +299,19 @@ In each of these models, distance to the nearest protest is instrumented by rain
 
 In both models 1 and 3, we see that living near a BLM protest in the summer of 2020 caused lower turnout overall. Models 2 and 4, however, support our expectation that there would be racial heterogeneity in these estimates: while living near a BLM protest was apparently demobilizing for non-Black communities, models 2 and 4 indicate that living close to a protest was apparently far less demobilizing---or even mobilizing---for Black tracts and block groups.
 
-\begin{figure}
-\hypertarget{tab:bg-tract-to}{%
-\centering
-\includegraphics{"../temp/reg.png"}
-\caption{Causal Effect of Distance to Protest on Turnout}\label{tab:bg-tract-to}
-}
-\end{figure}
+\begin{singlespace}
+\input{"../temp/tract_bg_to.tex"}
+\end{singlespace}
 
-In Figure \ref{fig:mef-t-to} we present the marginal effects plot from model 4 of Table \ref{tab:bg-tract-to}. We show the relationships between race, distance to protest, and tract turnout, with all other covariates held at their means. The figure indicates that the estimated effect sizes are very large, raising questions about the validity of the causal design. We expect these estimated effect sizes will shrink substantially once we control for spatial dependencies in the rainfall.
+In Figure \ref{fig:mef-t-to} we present the marginal effects plot from model 4 of Table \ref{bg-tract-to}. We show the relationships between race, distance to protest, and tract turnout, with all other covariates held at their means. The figure indicates that the estimated effect sizes are very large, raising questions about the validity of the causal design. We expect these estimated effect sizes will shrink substantially once we control for spatial dependencies in the rainfall.
 
-\begin{figure}
-\hypertarget{fig:mef-t-to}{%
-\centering
-\includegraphics{"../temp/mef.png"}
-\caption{Census Tract Turnout in 2020, by Share Black and Instrumented DIstance to a BLM Protest}\label{fig:mef-t-to}
+\begin{figure}[h]
+
+{\centering \includegraphics{blm_turnout_files/figure-latex/mef-vf-1} 
+
 }
+
+\caption{\label{fig:mef-t-to}Census Tract Turnout in 2020, by Share Black and Instrumented Distance to a BLM Protest}\label{fig:mef-vf}
 \end{figure}
 
 The mobilizing effects of the BLM protests, then, were complicated: although they may have mobilized some Black neighborhoods, they apparently led to decreased turnout in areas with fewer Black residents.

@@ -1,7 +1,7 @@
 ### THIS SCRIPT TAKES THE RAW L2 VOTER FILES AND DUMPS THEM IN AN SQL DATABASE FOR EASIER QUERYING
 
 ### start by connecting to an (empty, at first) SQL database where we'll dump the voter files
-db <- dbConnect(SQLite(), "E:/national_file_post20.db")
+db <- dbConnect(SQLite(), "D:/national_file_post20.db")
 
 ## grab file names
 j <- list.files("E:/national/post_2020", full.names = T,
