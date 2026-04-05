@@ -1,0 +1,28 @@
+Package: blmturnout
+Title: BLM Protests and Voter Turnout: A Causal Inference Approach
+Version: 0.1.0
+Authors@R:
+    person("Kasey", "Zapatka", role = c("aut", "cre"),
+           email = "your@email.com")
+Description:
+    Estimates the causal effect of Black Lives Matter protests on voter
+    turnout in the 2020 general election using instrumental variables
+    (rainfall as instrument for protest exposure) and spatial regression
+    to correct for spatial autocorrelation. Georgia proof of concept.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Imports:
+    targets,
+    tidyverse,
+    sf,
+    tigris,
+    tidycensus,
+    spdep,
+    spatialreg,
+    ivreg,
+    modelsummary,
+    here,
+    leaflet,
+    shiny

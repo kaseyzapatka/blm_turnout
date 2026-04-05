@@ -1,0 +1,4 @@
+# Copy this file to .Renviron (never commit .Renviron to git)
+# then restart R for the key to take effect.
+
+CENSUS_API_KEY=your_key_here

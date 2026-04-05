@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "interactive.html",
+    "href": "interactive.html",
+    "title": "Explore",
+    "section": "",
+    "text": "The Shiny app below lets you interactively explore the two key relationships that underpin the instrumental variables design:\n\nFirst stage (left panel): Does more rainfall predict greater distance from protests?\nReduced form (right panel): Does more rainfall predict lower turnout?\n\nIf both relationships hold, and if the exclusion restriction is credible, then the ratio of the reduced-form to the first-stage coefficient gives the causal effect of protest proximity on turnout.\nUse the controls to highlight specific counties, adjust the smoother bandwidth, and toggle spatial outliers. The F-statistic and implied IV ratio update live.\n\n\n\n   \n\n\n\n\n\n\n\n\nNote\n\n\n\nLocal preview: Clone the repository and run shiny::runApp(\"shiny/\") in R to explore the app without deployment. The app requires processed data from data/processed/ — run scripts 01 through 04 first."
+  },
+  {
+    "objectID": "interactive.html#instrument-validity-explorer",
+    "href": "interactive.html#instrument-validity-explorer",
+    "title": "Explore",
+    "section": "",
+    "text": "The Shiny app below lets you interactively explore the two key relationships that underpin the instrumental variables design:\n\nFirst stage (left panel): Does more rainfall predict greater distance from protests?\nReduced form (right panel): Does more rainfall predict lower turnout?\n\nIf both relationships hold, and if the exclusion restriction is credible, then the ratio of the reduced-form to the first-stage coefficient gives the causal effect of protest proximity on turnout.\nUse the controls to highlight specific counties, adjust the smoother bandwidth, and toggle spatial outliers. The F-statistic and implied IV ratio update live.\n\n\n\n   \n\n\n\n\n\n\n\n\nNote\n\n\n\nLocal preview: Clone the repository and run shiny::runApp(\"shiny/\") in R to explore the app without deployment. The app requires processed data from data/processed/ — run scripts 01 through 04 first."
+  },
+  {
+    "objectID": "interactive.html#what-to-look-for",
+    "href": "interactive.html#what-to-look-for",
+    "title": "Explore",
+    "section": "What to Look For",
+    "text": "What to Look For\nFirst stage (instrument relevance): A negative, statistically significant slope means rainfall → farther from protests. The F-statistic should exceed 10.\nReduced form (intention-to-treat): A negative slope means higher rainfall → lower turnout. If both slopes are negative and significant, the IV estimate (their ratio) is positive — protests increased turnout.\nSpatial outliers: Block groups flagged as spatial outliers (high-leverage in the Moran’s I sense) deserve attention. If the IV result is driven entirely by spatially autocorrelated units, that is a robustness concern."
+  },
+  {
+    "objectID": "interactive.html#future-interactive-components",
+    "href": "interactive.html#future-interactive-components",
+    "title": "Explore",
+    "section": "Future Interactive Components",
+    "text": "Future Interactive Components\nTwo additional apps are planned as the analysis scales nationally:\nProtest & Turnout Map Explorer — A Leaflet map of Georgia block groups colored by user-selected variable (turnout / distance / rainfall / IV residuals), with click-to-popup for individual block group data.\nTreatment Effect Heterogeneity — After fitting a Geographically Weighted Regression (GWR), a choropleth of local 2SLS coefficients will show where in Georgia the protest effect is strongest, alongside a histogram of the coefficient distribution."
+  },
+  {
+    "objectID": "methods.html",
+    "href": "methods.html",
+    "title": "Methods",
+    "section": "",
+    "text": "The goal is to estimate the causal effect of proximity to a Black Lives Matter protest on 2020 general election turnout at the census block group level in Georgia. Proximity is measured as the straight-line distance (miles) from a block group’s centroid to the nearest 2020 BLM protest event.\n\n\nSimple OLS regression of turnout on distance is biased because protest locations are not randomly assigned. Protests clustered in urban, high-resource, high-turnout areas — any positive correlation between protest proximity and turnout may reflect pre-existing demographic differences rather than a protest effect.\n\n\n\nWe use rainfall on protest days as an instrumental variable for protest exposure. The logic:\n\nRelevance: Rain reduces protest size and attendance. Block groups with more rainfall during the protest period were, on average, farther from large protests.\nExclusion: Rainfall on protest days (months before Election Day) has no direct path to November turnout — it operates only through its effect on protest size and location.\n\nThis gives us a valid instrument if we are willing to assume that rainfall patterns in May–September 2020 are unrelated to block-group–level political mobilization independent of the protests themselves.\n\n\n\n\n\n\n\n\nflowchart LR\n  R[\"Rainfall\\n(instrument)\"] --&gt;|first stage| D[\"Protest\\nexposure\"]\n  D --&gt;|causal effect of interest| T[\"2020 voter\\nturnout\"]\n  U[\"Unobserved\\nconfounders\"] -.-&gt;|bias| D\n  U -.-&gt;|bias| T\n  style R fill:#4a90d9,color:#fff\n  style D fill:#e67e22,color:#fff\n  style T fill:#27ae60,color:#fff\n  style U fill:#bbb,color:#333,stroke-dasharray: 5 5\n\n\n\n\n\n\nRainfall is excluded from the turnout equation (dashed arrow absent), satisfying the exclusion restriction."
+  },
+  {
+    "objectID": "methods.html#research-design",
+    "href": "methods.html#research-design",
+    "title": "Methods",
+    "section": "",
+    "text": "The goal is to estimate the causal effect of proximity to a Black Lives Matter protest on 2020 general election turnout at the census block group level in Georgia. Proximity is measured as the straight-line distance (miles) from a block group’s centroid to the nearest 2020 BLM protest event.\n\n\nSimple OLS regression of turnout on distance is biased because protest locations are not randomly assigned. Protests clustered in urban, high-resource, high-turnout areas — any positive correlation between protest proximity and turnout may reflect pre-existing demographic differences rather than a protest effect.\n\n\n\nWe use rainfall on protest days as an instrumental variable for protest exposure. The logic:\n\nRelevance: Rain reduces protest size and attendance. Block groups with more rainfall during the protest period were, on average, farther from large protests.\nExclusion: Rainfall on protest days (months before Election Day) has no direct path to November turnout — it operates only through its effect on protest size and location.\n\nThis gives us a valid instrument if we are willing to assume that rainfall patterns in May–September 2020 are unrelated to block-group–level political mobilization independent of the protests themselves.\n\n\n\n\n\n\n\n\nflowchart LR\n  R[\"Rainfall\\n(instrument)\"] --&gt;|first stage| D[\"Protest\\nexposure\"]\n  D --&gt;|causal effect of interest| T[\"2020 voter\\nturnout\"]\n  U[\"Unobserved\\nconfounders\"] -.-&gt;|bias| D\n  U -.-&gt;|bias| T\n  style R fill:#4a90d9,color:#fff\n  style D fill:#e67e22,color:#fff\n  style T fill:#27ae60,color:#fff\n  style U fill:#bbb,color:#333,stroke-dasharray: 5 5\n\n\n\n\n\n\nRainfall is excluded from the turnout equation (dashed arrow absent), satisfying the exclusion restriction."
+  },
+  {
+    "objectID": "methods.html#formal-model",
+    "href": "methods.html#formal-model",
+    "title": "Methods",
+    "section": "Formal Model",
+    "text": "Formal Model\n\nFirst Stage\n\\log(\\text{dist}_i + 1) = \\alpha_0 + \\alpha_1 \\log(\\text{rainfall}_i + 1) + \\alpha_2 \\text{pop\\_dens}_i + \\alpha_3 \\text{pct\\_black}_i + \\nu_i\nwhere \\hat{\\text{dist}}_i (fitted values) is the instrument. The F-statistic on excluded instruments must exceed 10 for the instrument to be considered strong.\n\n\nSecond Stage (2SLS)\n\\text{turnout}_i = \\beta_0 + \\beta_1 \\widehat{\\text{dist}}_i + \\sum_t \\gamma_t \\text{turnout}_{it} + \\varepsilon_i\n\\beta_1 is the causal estimate of interest: the effect of being one mile farther from a protest on block group turnout share.\n\n\nReduced Form\n\\text{turnout}_i = \\delta_0 + \\delta_1 \\log(\\text{rainfall}_i + 1) + \\sum_t \\gamma_t \\text{turnout}_{it} + \\eta_i\nThe ratio \\hat\\delta_1 / \\hat\\alpha_1 gives the Wald (IV) estimate, which should match the 2SLS coefficient."
+  },
+  {
+    "objectID": "methods.html#spatial-autocorrelation",
+    "href": "methods.html#spatial-autocorrelation",
+    "title": "Methods",
+    "section": "Spatial Autocorrelation",
+    "text": "Spatial Autocorrelation\nCensus block groups that are geographically close to each other tend to have similar turnout rates — a violation of the OLS independence assumption. We quantify this with Moran’s I, a spatially-weighted correlation coefficient:\nI = \\frac{n}{S_0} \\frac{\\sum_i \\sum_j w_{ij}(x_i - \\bar{x})(x_j - \\bar{x})}{\\sum_i (x_i - \\bar{x})^2}\nwhere w_{ij} is the spatial weight between units i and j (queen contiguity, row-standardized) and S_0 = \\sum_i \\sum_j w_{ij}.\n\nSpatial Autocorrelation in Key Variables\n\n\n\nGlobal Moran’s I test for spatial autocorrelation (queen contiguity weights).\n\n\nVariable\nMoran’s I\np-value\n\n\n\n\n2020 Turnout\n0.323\n0\n\n\nDistance from protest\n0.970\n0\n\n\nRelative rainfall\n0.928\n0\n\n\n\n\n\n\n\n\n\n\nMoran’s I scatterplot: 2020 turnout vs. neighbors’ average turnout. Positive slope confirms spatial clustering.\n\n\n\n\n\n\nSpatial Model Specification\nLagrange multiplier (LM) tests on the baseline OLS model indicate non-independent error terms arising from both spatial lag and spatial error processes. We therefore estimate a spatial error model:\n\\text{turnout}_i = X_i \\beta + u_i, \\quad u_i = \\lambda \\sum_j w_{ij} u_j + \\varepsilon_i\nwhich absorbs spatially structured unobservables into the error term, producing consistent coefficient estimates. For the IV setting, we use the predicted distance from the first stage as the treatment in the spatial error framework — a practical implementation of the spatial 2SLS approach outlined in Betz, Cook & Hollenbach (2019)."
+  },
+  {
+    "objectID": "methods.html#variable-summary",
+    "href": "methods.html#variable-summary",
+    "title": "Methods",
+    "section": "Variable Summary",
+    "text": "Variable Summary\n\n\n\n\n\nSpatial distributions of distance from protest (left) and relative rainfall (right). Both show clear geographic clustering.\n\n\n\n\n\n\n\nSpatial distributions of distance from protest (left) and relative rainfall (right). Both show clear geographic clustering."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Do Black Lives Matter Protests Increase Voter Turnout?",
+    "section": "",
+    "text": "Did the wave of Black Lives Matter protests following George Floyd’s murder in May 2020 causally increase voter turnout in the 2020 presidential election? This project estimates that effect at the census block group level in Georgia, using rainfall on protest days as an instrumental variable for protest exposure.\nThe core challenge is selection bias: protests occurred disproportionately in urban, high-turnout areas, making naive comparisons misleading. Rainfall is a credible instrument — it plausibly deterred protest attendance without directly affecting who voted on Election Day (months later)."
+  },
+  {
+    "objectID": "index.html#research-question",
+    "href": "index.html#research-question",
+    "title": "Do Black Lives Matter Protests Increase Voter Turnout?",
+    "section": "",
+    "text": "Did the wave of Black Lives Matter protests following George Floyd’s murder in May 2020 causally increase voter turnout in the 2020 presidential election? This project estimates that effect at the census block group level in Georgia, using rainfall on protest days as an instrumental variable for protest exposure.\nThe core challenge is selection bias: protests occurred disproportionately in urban, high-turnout areas, making naive comparisons misleading. Rainfall is a credible instrument — it plausibly deterred protest attendance without directly affecting who voted on Election Day (months later)."
+  },
+  {
+    "objectID": "index.html#key-finding",
+    "href": "index.html#key-finding",
+    "title": "Do Black Lives Matter Protests Increase Voter Turnout?",
+    "section": "Key Finding",
+    "text": "Key Finding\n\nInstrumental variables estimates suggest that proximity to a BLM protest increased block group–level turnout in Georgia’s 2020 general election, even after correcting for spatial autocorrelation in both the outcome and the instrument. OLS estimates of this effect are likely upward-biased due to endogenous protest location."
+  },
+  {
+    "objectID": "index.html#data",
+    "href": "index.html#data",
+    "title": "Do Black Lives Matter Protests Increase Voter Turnout?",
+    "section": "Data",
+    "text": "Data\n\n\n\nSource\nDescription\nUnit\n\n\n\n\nL2 Political\nVoter file turnout records\nBlock group\n\n\nCount Love\nBLM protest locations & dates\nEvent\n\n\nNOAA / PRISM\nDaily rainfall\nBlock group\n\n\nU.S. Census / ACS (2019)\nDemographics, shapefiles\nBlock group"
+  },
+  {
+    "objectID": "index.html#overview-map",
+    "href": "index.html#overview-map",
+    "title": "Do Black Lives Matter Protests Increase Voter Turnout?",
+    "section": "Overview Map",
+    "text": "Overview Map\n\n\n\n\n\n2020 general election turnout by census block group, Georgia."
+  },
+  {
+    "objectID": "index.html#project-structure",
+    "href": "index.html#project-structure",
+    "title": "Do Black Lives Matter Protests Increase Voter Turnout?",
+    "section": "Project Structure",
+    "text": "Project Structure\nThis project is organized as a reproducible R workflow:\nR/\n├── 00-packages.R        # all dependencies (renv-managed)\n├── 01-ingest.R          # load raw data, download Census shapefiles\n├── 02-clean.R           # parse GEOIDs, merge, handle missing values\n├── 03-spatial-weights.R # spatial weights, Moran's I, choropleth maps\n├── 04-models.R          # OLS → first stage → 2SLS → spatial error model\n└── functions/\n    ├── clean_geoid.R    # GEOID parsing utility\n    ├── mapping.R        # choropleth wrapper\n    └── model_tables.R   # modelsummary wrappers\nRun targets::tar_make() to execute the full pipeline. See Methods for the research design and Results for model estimates."
+  },
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "Results",
+    "section": "",
+    "text": "The table below compares four specifications in progression from naive OLS to the spatially-corrected IV model. Reading across columns reveals how the distance estimate changes as we account for confounding (controls), endogeneity (2SLS), and spatial dependence (spatial error).\n\n\n    \n\n    \n\n    \n    \n    \n      \n        Effect of BLM Protest Proximity on 2020 General Election Turnout\n        \n              \n                 \n                OLS (2018 only)\n                OLS (controls)\n                2SLS\n                Spatial Error\n              \n        \n        * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01\nUnit of observation: census block group, Georgia. Outcome: share of registered voters turning out in the 2020 general election. Distance measured in miles from block group centroid to nearest 2020 BLM protest. Standard errors in parentheses. * p &lt; 0.10, ** p &lt; 0.05, *** p &lt; 0.01.\n        \n                \n                  Turnout 2018\n                  1.238***\n                  0.863***\n                  0.874***\n                  0.914***\n                \n                \n                  \n                  (0.004)\n                  (0.020)\n                  (0.021)\n                  (0.021)\n                \n                \n                  Turnout 2016\n                  \n                  1.096***\n                  1.096***\n                  0.935***\n                \n                \n                  \n                  \n                  (0.022)\n                  (0.022)\n                  (0.024)\n                \n                \n                  Turnout 2014\n                  \n                  −0.673***\n                  −0.652***\n                  −0.590***\n                \n                \n                  \n                  \n                  (0.020)\n                  (0.021)\n                  (0.022)\n                \n                \n                  Turnout 2012\n                  \n                  −0.243***\n                  −0.258***\n                  −0.107***\n                \n                \n                  \n                  \n                  (0.016)\n                  (0.017)\n                  (0.019)\n                \n                \n                  Turnout 2010\n                  \n                  −0.086***\n                  −0.107***\n                  −0.191***\n                \n                \n                  \n                  \n                  (0.017)\n                  (0.019)\n                  (0.021)\n                \n                \n                  Distance from protest (mi)\n                  \n                  −0.001***\n                  −0.000**\n                  −0.001***\n                \n                \n                  \n                  \n                  (0.000)\n                  (0.000)\n                  (0.000)\n                \n                \n                  Intercept\n                  0.037***\n                  0.015***\n                  0.012***\n                  0.014***\n                \n                \n                  \n                  (0.002)\n                  (0.002)\n                  (0.002)\n                  (0.002)\n                \n                \n                  Num.Obs.\n                  5525\n                  5525\n                  5525\n                  5525\n                \n                \n                  R2\n                  0.949\n                  0.977\n                  0.976\n                  \n                \n                \n                  R2 Adj.\n                  0.949\n                  0.977\n                  0.976\n                  \n                \n                \n                  RMSE\n                  0.05\n                  0.04\n                  0.04\n                  0.03"
+  },
+  {
+    "objectID": "results.html#main-results",
+    "href": "results.html#main-results",
+    "title": "Results",
+    "section": "",
+    "text": "The table below compares four specifications in progression from naive OLS to the spatially-corrected IV model. Reading across columns reveals how the distance estimate changes as we account for confounding (controls), endogeneity (2SLS), and spatial dependence (spatial error).\n\n\n    \n\n    \n\n    \n    \n    \n      \n        Effect of BLM Protest Proximity on 2020 General Election Turnout\n        \n              \n                 \n                OLS (2018 only)\n                OLS (controls)\n                2SLS\n                Spatial Error\n              \n        \n        * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01\nUnit of observation: census block group, Georgia. Outcome: share of registered voters turning out in the 2020 general election. Distance measured in miles from block group centroid to nearest 2020 BLM protest. Standard errors in parentheses. * p &lt; 0.10, ** p &lt; 0.05, *** p &lt; 0.01.\n        \n                \n                  Turnout 2018\n                  1.238***\n                  0.863***\n                  0.874***\n                  0.914***\n                \n                \n                  \n                  (0.004)\n                  (0.020)\n                  (0.021)\n                  (0.021)\n                \n                \n                  Turnout 2016\n                  \n                  1.096***\n                  1.096***\n                  0.935***\n                \n                \n                  \n                  \n                  (0.022)\n                  (0.022)\n                  (0.024)\n                \n                \n                  Turnout 2014\n                  \n                  −0.673***\n                  −0.652***\n                  −0.590***\n                \n                \n                  \n                  \n                  (0.020)\n                  (0.021)\n                  (0.022)\n                \n                \n                  Turnout 2012\n                  \n                  −0.243***\n                  −0.258***\n                  −0.107***\n                \n                \n                  \n                  \n                  (0.016)\n                  (0.017)\n                  (0.019)\n                \n                \n                  Turnout 2010\n                  \n                  −0.086***\n                  −0.107***\n                  −0.191***\n                \n                \n                  \n                  \n                  (0.017)\n                  (0.019)\n                  (0.021)\n                \n                \n                  Distance from protest (mi)\n                  \n                  −0.001***\n                  −0.000**\n                  −0.001***\n                \n                \n                  \n                  \n                  (0.000)\n                  (0.000)\n                  (0.000)\n                \n                \n                  Intercept\n                  0.037***\n                  0.015***\n                  0.012***\n                  0.014***\n                \n                \n                  \n                  (0.002)\n                  (0.002)\n                  (0.002)\n                  (0.002)\n                \n                \n                  Num.Obs.\n                  5525\n                  5525\n                  5525\n                  5525\n                \n                \n                  R2\n                  0.949\n                  0.977\n                  0.976\n                  \n                \n                \n                  R2 Adj.\n                  0.949\n                  0.977\n                  0.976\n                  \n                \n                \n                  RMSE\n                  0.05\n                  0.04\n                  0.04\n                  0.03"
+  },
+  {
+    "objectID": "results.html#first-stage",
+    "href": "results.html#first-stage",
+    "title": "Results",
+    "section": "First Stage",
+    "text": "First Stage\nThe instrument (rainfall) must be strongly correlated with the endogenous variable (distance from protest) for 2SLS to be reliable. The first-stage F-statistic — reported below — should exceed 10; values below this threshold indicate a weak instrument problem.\n\n\n**First-stage F-statistic: 463.54** (threshold for strong instrument: F &gt; 10)\n\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                 \n                First Stage\n              \n        \n        * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01\n        \n                \n                  Population density\n                  −0.000***\n                \n                \n                  \n                  (0.000)\n                \n                \n                  % Non-Hispanic Black\n                  −0.253***\n                \n                \n                  \n                  (0.035)\n                \n                \n                  Intercept\n                  2.451***\n                \n                \n                  \n                  (0.034)\n                \n                \n                  Num.Obs.\n                  5525\n                \n                \n                  R2\n                  0.201\n                \n                \n                  F-statistic\n                  463.540"
+  },
+  {
+    "objectID": "results.html#instrument-validity-wu-hausman-test",
+    "href": "results.html#instrument-validity-wu-hausman-test",
+    "title": "Results",
+    "section": "Instrument Validity: Wu-Hausman Test",
+    "text": "Instrument Validity: Wu-Hausman Test\nThe Wu-Hausman test evaluates whether OLS is actually inconsistent — i.e., whether distance is truly endogenous. A small p-value rejects the null that OLS and IV estimates are equivalent, supporting the use of IV.\n\n\nWu-Hausman test statistic: **6.638** (p = 0.0100)"
+  },
+  {
+    "objectID": "results.html#spatial-autocorrelation-in-residuals",
+    "href": "results.html#spatial-autocorrelation-in-residuals",
+    "title": "Results",
+    "section": "Spatial Autocorrelation in Residuals",
+    "text": "Spatial Autocorrelation in Residuals\nIf OLS residuals are spatially clustered, standard errors are underestimated and inference is unreliable. The maps below compare OLS vs. 2SLS residuals — spatial structure in residuals signals remaining spatial dependence not captured by the model.\n\n\n\n\n\nLeft: OLS residuals. Right: 2SLS residuals. Remaining spatial clustering in OLS residuals motivates the spatial error specification.\n\n\n\n\n\n\n\nLeft: OLS residuals. Right: 2SLS residuals. Remaining spatial clustering in OLS residuals motivates the spatial error specification."
+  },
+  {
+    "objectID": "results.html#lagrange-multiplier-specification-tests",
+    "href": "results.html#lagrange-multiplier-specification-tests",
+    "title": "Results",
+    "section": "Lagrange Multiplier Specification Tests",
+    "text": "Lagrange Multiplier Specification Tests\n\n\n\n    Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial\n    dependence\n\ndata:  \nmodel: lm(formula = as.formula(paste(\"General_2020_11_03 ~\",\nturnout_rhs, \"+ dist\")), data = GA_iv)\ntest weights: listw\n\nRSerr = 1356.8, df = 1, p-value &lt; 2.2e-16\n\n\n    Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial\n    dependence\n\ndata:  \nmodel: lm(formula = as.formula(paste(\"General_2020_11_03 ~\",\nturnout_rhs, \"+ dist\")), data = GA_iv)\ntest weights: listw\n\nRSlag = 57.768, df = 1, p-value = 2.953e-14\n\n\n    Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial\n    dependence\n\ndata:  \nmodel: lm(formula = as.formula(paste(\"General_2020_11_03 ~\",\nturnout_rhs, \"+ dist\")), data = GA_iv)\ntest weights: listw\n\nadjRSerr = 1300.5, df = 1, p-value &lt; 2.2e-16\n\n\n    Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial\n    dependence\n\ndata:  \nmodel: lm(formula = as.formula(paste(\"General_2020_11_03 ~\",\nturnout_rhs, \"+ dist\")), data = GA_iv)\ntest weights: listw\n\nadjRSlag = 1.5124, df = 1, p-value = 0.2188\n\n\n    Rao's score (a.k.a Lagrange multiplier) diagnostics for spatial\n    dependence\n\ndata:  \nmodel: lm(formula = as.formula(paste(\"General_2020_11_03 ~\",\nturnout_rhs, \"+ dist\")), data = GA_iv)\ntest weights: listw\n\nSARMA = 1358.3, df = 2, p-value &lt; 2.2e-16\n\n\nResults from these tests determine whether to use a spatial lag model (missing spatially-lagged DV), a spatial error model (non-independent errors), or a Spatial Durbin model (both). Both lag and error statistics are significant, suggesting a Spatial Durbin specification is appropriate for the final model — a direction for future work."
+  },
+  {
+    "objectID": "results.html#robustness",
+    "href": "results.html#robustness",
+    "title": "Results",
+    "section": "Robustness",
+    "text": "Robustness\nThe following checks help assess the sensitivity of results:\n\nAlternative control sets: Using only 2018 turnout vs. all five prior election years\nLog vs. level distance: log(dist + 1) vs. dist in miles — addresses right-skew\nCounty fixed effects: absorb county-level unobservables (requires sufficient within-county variation in rainfall)\n\nThese robustness specifications can be added to R/04-models.R following the established pipeline pattern."
+  }
+]

@@ -1,0 +1,50 @@
+---
+title: "Explore"
+subtitle: "Interactive tools for exploring the identification strategy and data"
+---
+
+## Instrument Validity Explorer
+
+The Shiny app below lets you interactively explore the two key relationships that underpin the instrumental variables design:
+
+- **First stage** (left panel): Does more rainfall predict greater distance from protests?
+- **Reduced form** (right panel): Does more rainfall predict lower turnout?
+
+If both relationships hold, and if the exclusion restriction is credible, then the ratio of the reduced-form to the first-stage coefficient gives the causal effect of protest proximity on turnout.
+
+Use the controls to highlight specific counties, adjust the smoother bandwidth, and toggle spatial outliers. The F-statistic and implied IV ratio update live.
+
+```{r shiny-embed, echo=FALSE}
+# Option 1 (recommended for portfolio): deploy shiny/app.R to shinyapps.io,
+# then replace the URL below.
+# shiny::shinyAppDir(here::here("shiny"))  # local preview
+
+knitr::raw_html(
+  '<iframe src="https://YOUR-ACCOUNT.shinyapps.io/blm-turnout-explorer/"
+           width="100%" height="750px" frameborder="0">
+   </iframe>'
+)
+```
+
+::: {.callout-note}
+**Local preview:** Clone the repository and run `shiny::runApp("shiny/")` in R to explore the app without deployment. The app requires processed data from `data/processed/` — run scripts `01` through `04` first.
+:::
+
+## What to Look For
+
+**First stage (instrument relevance):**
+A negative, statistically significant slope means rainfall → farther from protests. The F-statistic should exceed 10.
+
+**Reduced form (intention-to-treat):**
+A negative slope means higher rainfall → lower turnout. If both slopes are negative and significant, the IV estimate (their ratio) is positive — protests increased turnout.
+
+**Spatial outliers:**
+Block groups flagged as spatial outliers (high-leverage in the Moran's I sense) deserve attention. If the IV result is driven entirely by spatially autocorrelated units, that is a robustness concern.
+
+## Future Interactive Components
+
+Two additional apps are planned as the analysis scales nationally:
+
+**Protest & Turnout Map Explorer** — A Leaflet map of Georgia block groups colored by user-selected variable (turnout / distance / rainfall / IV residuals), with click-to-popup for individual block group data.
+
+**Treatment Effect Heterogeneity** — After fitting a Geographically Weighted Regression (GWR), a choropleth of local 2SLS coefficients will show *where* in Georgia the protest effect is strongest, alongside a histogram of the coefficient distribution.

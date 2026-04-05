@@ -1,0 +1,55 @@
+---
+title: "Do Black Lives Matter Protests Increase Voter Turnout?"
+subtitle: "A causal inference approach using instrumental variables and spatial regression"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(targets)
+library(here)
+source(here("R/functions/mapping.R"))
+```
+
+## Research Question
+
+Did the wave of Black Lives Matter protests following George Floyd's murder in May 2020 causally increase voter turnout in the 2020 presidential election? This project estimates that effect at the census block group level in Georgia, using **rainfall on protest days as an instrumental variable** for protest exposure.
+
+The core challenge is selection bias: protests occurred disproportionately in urban, high-turnout areas, making naive comparisons misleading. Rainfall is a credible instrument — it plausibly deterred protest attendance without directly affecting who voted on Election Day (months later).
+
+## Key Finding
+
+> Instrumental variables estimates suggest that proximity to a BLM protest increased block group–level turnout in Georgia's 2020 general election, even after correcting for spatial autocorrelation in both the outcome and the instrument. OLS estimates of this effect are likely upward-biased due to endogenous protest location.
+
+## Data
+
+| Source | Description | Unit |
+|---|---|---|
+| [L2 Political](https://l2political.com) | Voter file turnout records | Block group |
+| [Count Love](https://countlove.org) | BLM protest locations & dates | Event |
+| NOAA / PRISM | Daily rainfall | Block group |
+| U.S. Census / ACS (2019) | Demographics, shapefiles | Block group |
+
+## Overview Map
+
+```{r overview-map, fig.cap="2020 general election turnout by census block group, Georgia."}
+tar_read(map_turnout)
+```
+
+## Project Structure
+
+This project is organized as a reproducible R workflow:
+
+```
+R/
+├── 00-packages.R        # all dependencies (renv-managed)
+├── 01-ingest.R          # load raw data, download Census shapefiles
+├── 02-clean.R           # parse GEOIDs, merge, handle missing values
+├── 03-spatial-weights.R # spatial weights, Moran's I, choropleth maps
+├── 04-models.R          # OLS → first stage → 2SLS → spatial error model
+└── functions/
+    ├── clean_geoid.R    # GEOID parsing utility
+    ├── mapping.R        # choropleth wrapper
+    └── model_tables.R   # modelsummary wrappers
+```
+
+Run `targets::tar_make()` to execute the full pipeline. See [Methods](methods.qmd) for the research design and [Results](results.qmd) for model estimates.
