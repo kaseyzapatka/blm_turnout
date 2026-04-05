@@ -20,6 +20,14 @@ tar_option_set(
 tar_source("R/functions/")
 
 # ---------------------------------------------------------------------------
+# State selection — change this one value to switch states
+# Use the full state name as it appears in the NAME column of the Census data
+# ---------------------------------------------------------------------------
+
+analysis_state      <- "Georgia"
+analysis_state_fips <- "GA"   # two-letter FIPS abbreviation for tigris
+
+# ---------------------------------------------------------------------------
 # Shared formula components (defined once, referenced in multiple targets)
 # ---------------------------------------------------------------------------
 
@@ -54,7 +62,7 @@ list(
   # tigris downloads directly from Census TIGER — no API key needed.
   tar_target(
     GA_shapefile,
-    block_groups(state = "GA", year = 2019, cb = TRUE, class = "sf") |>
+    block_groups(state = analysis_state_fips, year = 2019, cb = TRUE, class = "sf") |>
       rename(blkgrpid = GEOID)
   ),
 
@@ -77,7 +85,7 @@ list(
     GA_sf,
     {
       GA_data_clean |>
-        filter(state_name == "Georgia") |>
+        filter(state_name == analysis_state) |>
         inner_join(GA_shapefile, by = "blkgrpid") |>
         st_as_sf() |>
         mutate(across(starts_with("General"), ~ na_if(.x, Inf))) |>
