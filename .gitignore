@@ -9,7 +9,7 @@ renv/sandbox/
 # Secrets
 .Renviron
 
-# Quarto build
+# Quarto build artifacts (docs/ is tracked — used for GitHub Pages)
 .quarto/
 
 # targets cache
